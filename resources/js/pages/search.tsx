@@ -1,7 +1,15 @@
+import ActionButton from "@/components/action-button";
 import Header from "@/components/header"
+import ListItem from "@/components/list-item";
 
 export default function Search() {
-    const result = []
+    const result = [
+        { text: "Name", kind: "people", id: "1" },
+        { text: "Name", kind: "people", id: "1" },
+        { text: "Name", kind: "people", id: "1" },
+        { text: "Name", kind: "people", id: "1" },
+        { text: "Name", kind: "people", id: "1" },
+    ]
 
     const empty = !result.length ? <div className="grid grid-col-1 place-items-center mx-auto h-[500px]">
         <span className="text-center text-muted-gray font-bold">
@@ -9,7 +17,7 @@ export default function Search() {
             Use the form to search for People or Movies.
         </span>
     </div> : null;
-
+    const elements = result.map(el => <ListItem text={el.text} />)
 
     return (
         <>
@@ -22,10 +30,11 @@ export default function Search() {
                         <input type="radio" id="movies" name="content" /> <label htmlFor={"movies"}>Movies</label>
                     </div>
                     <input type="text" id="searching" className="w-full h-[50px] border border-black rounded-md" />
-                    <button className="rounded-full bg-default-green text-white uppercase font-bold p-2 self-center bottom-[50px] w-11/12 fixed xl:relative xl:w-full xl:bottom-0">Search</button>
+                    <ActionButton onClick={() => undefined}>Search</ActionButton>
                 </div>
                 <div className="xl:w-2/3 bg-white rounded-md m-5 flex flex-col m-5 space-y-5 p-6  shadow-md shadow-warm-gray">
-                    <h2 className="font-bold text-xl pb-3 border-b border-muted-gray">Results</h2>
+                    <ListItem text={"Results"} />
+                    {elements}
                     {empty}
                 </div>
             </div>
