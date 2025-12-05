@@ -1,4 +1,4 @@
-import ActionButton from "@/components/action-button";
+import Button from "@/components/atoms/button";
 import Header from "@/components/header"
 import ListItem from "@/components/list-item";
 
@@ -30,7 +30,7 @@ export default function Search() {
                         <input type="radio" id="movies" name="content" /> <label htmlFor={"movies"}>Movies</label>
                     </div>
                     <input type="text" id="searching" className="w-full h-[50px] border border-black rounded-md" />
-                    <ActionButton onClick={() => undefined}>Search</ActionButton>
+                    <Button className="w-11/12 xl:w-full" onClick={() => undefined}>Search</Button>
                 </div>
                 <div className="xl:w-2/3 bg-white rounded-md m-5 flex flex-col m-5 space-y-5 p-6  shadow-md shadow-warm-gray">
                     <ListItem text={"Results"} />

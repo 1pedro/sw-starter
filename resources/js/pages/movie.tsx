@@ -1,7 +1,8 @@
 import Header from "@/components/header";
 import Text from "@/components/atoms/text"
-import ActionButton from "@/components/action-button";
+import Button from "@/components/atoms/button";
 import movie from "@/mocks/film"
+import { Link } from "@inertiajs/react";
 export default function Movie() {
 
     const crawl = movie.result.properties.opening_crawl.split(/\r\n\r\n/).map(
@@ -19,7 +20,9 @@ export default function Movie() {
                         <div className="w-1/2">
                             <Text as={"h3"} className="font-bold pb-2 border-b-2 border-warm-gray">Opening Crawl</Text>
                             {crawl}
-                            <ActionButton className={"uppercase"} onClick={() => undefined}>Back to Search</ActionButton>
+                            <Link href="/">
+                                <Button className={"uppercase"}>Back to Search</Button>
+                            </Link>
                         </div>
 
                         <div className="w-1/2">
