@@ -34,7 +34,7 @@ return [
         'sqlite' => [
             'driver' => 'sqlite',
             'url' => env('DB_URL'),
-            'database' => env('MEMORY_DB_DATABASE', database_path('database.sqlite')),
+            'database' => env('FILE_DB_DATABASE', database_path('database.sqlite')),
             'prefix' => '',
             'foreign_key_constraints' => env('DB_FOREIGN_KEYS', false), // This will be used only for logs, there's no need for relations.
             'busy_timeout' => null,
