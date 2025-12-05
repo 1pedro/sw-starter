@@ -1,4 +1,3 @@
-import { cn } from "@/lib/utils";
 import { ComponentPropsWithoutRef, HTMLAttributes, JSX } from "react";
 
 export interface TextProps<T extends React.ElementType>
