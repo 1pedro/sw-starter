@@ -1,7 +1,6 @@
 <?php
 
-use Illuminate\Foundation\Inspiring;
-use Illuminate\Support\Facades\Artisan;
 use App\Jobs\ProcessStatistic;
+use Illuminate\Support\Facades\Schedule;
 
-Schedule::job(new ProcessStatistic)->everyFiveSeconds();
+Schedule::job(new ProcessStatistic())->everyFiveMinutes();

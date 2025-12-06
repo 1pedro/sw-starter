@@ -4,10 +4,9 @@ namespace App\Jobs;
 
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Queue\Queueable;
-use Illuminate\Support\Facades\Redis;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\DB;
-use App\Models\StatisticLog;
 
 class ProcessStatistic implements ShouldQueue
 {
@@ -18,7 +17,7 @@ class ProcessStatistic implements ShouldQueue
      */
     public function __construct()
     {
-
+        //
     }
 
     /**
@@ -44,7 +43,8 @@ class ProcessStatistic implements ShouldQueue
         $routeMetrics = DB::table('statistic_logs')
             ->where('created_at', '>=', $last5minutes)
             ->groupBy('route_name')
-            ->select('route_name',
+            ->select(
+                'route_name',
                 DB::raw('COUNT(*) as count'),
                 DB::raw('AVG(response_time_ms) as avg_time')
             )
@@ -91,10 +91,10 @@ class ProcessStatistic implements ShouldQueue
             'error_rate_percent' => $errorRate,
             'top_routes_by_volume' => $routeMetrics,
             'top_ip_address_by_volume' => $ipMetrics,
-            'popular_hour' => $popularHour
+            'popular_hour' => $popularHour,
         ];
 
-        Redis::set('statistics', json_encode($statistics));
+        Cache::put('statistics', $statistics, 300);
 
         Log::info("####### [ProcessStatistic] Processing finished #######");
     }
