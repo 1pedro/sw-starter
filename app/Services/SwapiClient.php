@@ -24,16 +24,16 @@ class SwapiClient
     private function toDTO(string $kind, array $data): mixed
     {
         $properties = $data["result"]["properties"];
-        return match (true) {
-            $kind === "people" => PeopleDTO::fromArray($properties),
-            $kind === "films" => FilmDTO::fromArray($properties),
+        return match ($kind) {
+            "people" => PeopleDTO::fromArray($properties),
+            "films" => FilmDTO::fromArray($properties),
             default => []
         };
     }
     /**
      * @return mixed
      */
-    public function cacheOrGet(string $kind, string|int $id): FilmDTO|PeopleDTO|array
+    public function cacheOrGet(string $kind, string|int $id): FilmDTO|PeopleDTO
     {
         $key = "{$kind}/{$id}";
 
@@ -58,7 +58,7 @@ class SwapiClient
 
         Cache::put($key, $response, $this->ttl);
 
-        return $data->toArray();
+        return $data;
     }
     /**
      * @return array

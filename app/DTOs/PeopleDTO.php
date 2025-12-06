@@ -60,4 +60,22 @@ final readonly class PeopleDTO
             "eye_color" => $this->eye_color,
         ];
     }
+
+    public function transformURLs(string $baseURL): self
+    {
+        $urls = collect($this->films)->map(function ($url) use ($baseURL) {
+            return str_replace('https://www.swapi.tech', $baseURL, $url);
+        })->toArray();
+
+        return new self(
+            name: $this->name,
+            gender: $this->gender,
+            height: $this->height,
+            mass: $this->mass,
+            birth_year: $this->birth_year,
+            eye_color: $this->eye_color,
+            hair_color: $this->hair_color,
+            films: $urls
+        );
+    }
 }

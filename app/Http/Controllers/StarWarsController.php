@@ -9,10 +9,12 @@ use Illuminate\Http\Request;
 class StarWarsController extends Controller
 {
     protected SwapiClient $swapi;
+    protected string $baseUrl;
 
     public function __construct(SwapiClient $swapi)
     {
         $this->swapi = $swapi;
+        $this->baseUrl = env("APP_URL");
     }
 
     private function isValidKind(string $kind): bool
@@ -41,7 +43,9 @@ class StarWarsController extends Controller
             return new JsonResponse(["errors" => ['kind' => ["invalid"]]]);
         }
 
-        $data = $this->swapi->cacheOrGet($kind, $id);
+        $data = $this->swapi
+            ->cacheOrGet($kind, $id)
+            ->transformURLs($this->baseUrl);
 
         return response()->json($data);
     }

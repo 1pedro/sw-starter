@@ -44,4 +44,18 @@ final readonly class FilmDTO
             "opening_crawl" => $this->opening_crawl,
         ];
     }
+
+
+    public function transformURLs(string $baseURL): self
+    {
+        $characters = collect($this->characters)->map(function ($url) use ($baseURL) {
+            return str_replace('https://www.swapi.tech', $baseURL, $url);
+        })->toArray();
+
+        return new self(
+            title: $this->title,
+            opening_crawl: $this->opening_crawl,
+            characters: $characters,
+        );
+    }
 }
