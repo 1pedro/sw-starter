@@ -9,7 +9,7 @@ import useGetPeople from "@/api/people";
 
 export default function usePeople(id: string) {
     const isSmall = useMedia('(max-width: 1024px');
-    const { data = { name: '', gender: '', height: '', mass: '', birth_year: '', eye_color: '', hair_color: '', films: [] }, isLoading, isError, error } = useGetPeople(id);
+    const { data = { name: '', gender: '', height: '', mass: '', birth_year: '', eye_color: '', hair_color: '', films: [] }, isError, error } = useGetPeople(id);
     const errorData = (error as AxiosError)?.response?.data as APIError;
     const errorComponent = isError ? <ErrorBox errors={errorData.errors} /> : null;
     const { name, gender, height, mass, birth_year, eye_color, hair_color, films } = data as People;
