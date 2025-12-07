@@ -15,9 +15,7 @@ export default function Film({ id }: { id: string }) {
         (text, index) => <Text as={"p"} key={index} className="mt-2" >{text}</Text>
     )
 
-    const preview = useLinkBuilder({ urls: data.characters });
-
-
+    const preview = useLinkBuilder({ urls: data.characters })
     const backButton = isSmall ? <LinkIcon icon={"chevron-left"} href={"/"} /> : null;
 
     return (
