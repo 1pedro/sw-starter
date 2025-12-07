@@ -1,4 +1,4 @@
-import { FormEvent, SyntheticEvent, useState } from "react";
+import { FormEvent, useState } from "react";
 import Button from "../atoms/button";
 import Input from "../atoms/input";
 import Text from "../atoms/text";

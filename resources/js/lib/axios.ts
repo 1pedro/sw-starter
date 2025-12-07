@@ -1,7 +1,7 @@
 
 import axios, { CreateAxiosDefaults } from "axios";
 export const api = (apiUrl: string) => {
-    let headers: CreateAxiosDefaults["headers"] = {
+    const headers: CreateAxiosDefaults["headers"] = {
         "content-type": "application/json",
     };
 

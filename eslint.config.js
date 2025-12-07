@@ -18,6 +18,15 @@ export default [js.configs.recommended, ...typescript.configs.recommended, {
         },
     },
     rules: {
+        "@typescript-eslint/no-unused-vars": [
+          "error",
+          {
+            argsIgnorePattern: "^_", // Ignores unused function arguments starting with _
+            varsIgnorePattern: "^_", // Ignores unused variables (including destructuring) starting with _
+            caughtErrorsIgnorePattern: "^_", // Ignores unused caught errors starting with _
+            ignoreRestSiblings: true, // Ignores unused rest siblings in object destructuring
+          },
+        ],
         'react/react-in-jsx-scope': 'off',
         'react/prop-types': 'off',
         'react/no-unescaped-entities': 'off',
