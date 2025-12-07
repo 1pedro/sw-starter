@@ -33,18 +33,16 @@ touch database/database.sqlite
 - [Sequence Diagrams](https://github.com/1pedro/sw-starter/blob/main/docs/sequence-diagrams.md)
 
 
-## Development Decisions
 
-### Backend
-
+## Backend Decisions
 - BFF Approach
     - Using BFF approach no persistent database was defined (only a sqlite file for statistics), keeping the SWAPI as the source of truth of Films and People.
-        - Benefits:
-            - Prevent inconsistency
-            - Enforce UI-specific transformations
-            - Reduce response payloads
-        - Drawbacks:
-            - Results are slow on startup (given there's no cache)
+    - Benefits:
+        - Prevent inconsistency
+        - Enforce UI-specific transformations
+        - Reduce response payloads
+    - Drawbacks:
+        - Results are slow on startup (given there's no cache)
 - Workers
     - A scheduled worker handles recurring job
     - A queue worker listens for background tasks
@@ -75,8 +73,7 @@ touch database/database.sqlite
     - Unit tests
     - Feature Tests
 
-### Frontend
-
+## Frontend Decisions
 - Atomic Design
     - Benefits:
         - Lower coupling
@@ -101,7 +98,6 @@ touch database/database.sqlite
     - Storybook for component documentation and exploration
 - Tests
     - Snapshot & Hooks tests
-
 
 ## Pending Improvements
 Due to a bunch of reasons, the biggest one being lack of time, some improvements could not be implemented.
