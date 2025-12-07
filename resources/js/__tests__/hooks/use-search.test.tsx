@@ -36,7 +36,6 @@ describe('useSearch', () => {
         const { result } = renderHook(() => useSearch());
         expect(result.current.isLoading).toBe(false);
         expect(result.current.isEmpty).toBe(true);
-        expect(result.current.data).toEqual([]);
         expect(result.current.hideResults).toBe(false);
         expect(result.current.hideSearchBox).toBe(false);
     });

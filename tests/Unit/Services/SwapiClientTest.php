@@ -133,6 +133,69 @@ describe('SwapiClient', function () {
             return $request->url() === 'https://example.swapi/api/films/1';
         });
     });
+    it('throws on cacheOrGet when SWAPI returns 404 and does not cache', function () {
+        Cache::forget('people/1');
+
+        Http::fake(['*' => Http::response('{"message":"Not found"}', 404, ['Content-Type' => 'application/json'])]);
+
+        $client = new SwapiClient();
+
+        expect(fn () => $client->cacheOrGet('people', '1'))
+            ->toThrow(\Exception::class, 'Failed to get data from SWAPI');
+
+        expect(Cache::get('people/1'))->toBeNull();
+
+        Http::assertSent(function ($request) {
+            return $request->method() === 'GET'
+                && $request->url() === 'https://example.swapi/api/people/1';
+        });
+    });
+
+    it('throws on cacheOrGet when SWAPI returns 500 and does not cache', function () {
+        Cache::forget('people/1');
+
+        Http::fake(['*' => Http::response('{"message":"Server error"}', 500, ['Content-Type' => 'application/json'])]);
+
+        $client = new SwapiClient();
+
+        expect(fn () => $client->cacheOrGet('people', '1'))
+            ->toThrow(\Exception::class, 'Failed to get data from SWAPI');
+
+        expect(Cache::get('people/1'))->toBeNull();
+
+        Http::assertSent(function ($request) {
+            return $request->method() === 'GET'
+                && $request->url() === 'https://example.swapi/api/people/1';
+        });
+    });
+
+    it('throws on search when SWAPI returns 404', function () {
+        Http::fake(['*' => Http::response('{"message":"Not found"}', 404, ['Content-Type' => 'application/json'])]);
+
+        $client = new SwapiClient();
+
+        expect(fn () => $client->search('people', 'Luke'))
+            ->toThrow(\Exception::class, 'Failed to get data from SWAPI');
+
+        Http::assertSent(function ($request) {
+            return $request->method() === 'GET'
+                && $request->url() === 'https://example.swapi/api/people?name=Luke';
+        });
+    });
+
+    it('throws on search when SWAPI returns 500', function () {
+        Http::fake(['*' => Http::response('{"message":"Server error"}', 500, ['Content-Type' => 'application/json'])]);
+
+        $client = new SwapiClient();
+
+        expect(fn () => $client->search('people', 'Luke'))
+            ->toThrow(\Exception::class, 'Failed to get data from SWAPI');
+
+        Http::assertSent(function ($request) {
+            return $request->method() === 'GET'
+                && $request->url() === 'https://example.swapi/api/people?name=Luke';
+        });
+    });
 });
 
 

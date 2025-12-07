@@ -101,7 +101,7 @@ it('returns person by id and transforms film URLs', function () {
 		]);
 });
 
-it('returns 500 with error payload when SWAPI fails', function () {
+it('returns 500 with error payload when SWAPI fails on search', function () {
 	$mock = new class() extends SwapiClient {
 		public function search(string $kind, string $content): Collection
 		{
@@ -117,7 +117,7 @@ it('returns 500 with error payload when SWAPI fails', function () {
 		]);
 });
 
-it('returns 500 with error payload when SWAPI fails', function () {
+it('returns 500 with error payload when SWAPI fails on getById', function () {
 	$mock = new class() extends SwapiClient {
 		public function cacheOrGet(string $kind, string|int $id): PeopleDTO
 		{
