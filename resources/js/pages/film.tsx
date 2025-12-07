@@ -1,0 +1,36 @@
+import Header from "@/components/molecules/header";
+import Text from "@/components/atoms/text"
+import useGetFilm from "@/api/film";
+import BasePage from "@/components/organisms/base-page";
+import { useMedia } from "react-use";
+import LinkIcon from "@/components/molecules/link-icon";
+import useLinkBuilder from "@/hooks/use-link-builder";
+
+export default function Film({ id }: { id: string }) {
+    const isSmall = useMedia('(max-width: 1024px');
+    const { data = { title: '', opening_crawl: '', characters: [] } } = useGetFilm(id);
+
+    const crawl = data.opening_crawl.split(/\r\n\r\n/).map(
+        (text, index) => <Text as={"p"} key={index} className="mt-2" >{text}</Text>
+    )
+
+    const preview = useLinkBuilder({ urls: data.characters })
+    const backButton = isSmall ? <LinkIcon icon={"chevron-left"} href={"/"} /> : null;
+
+    return (
+        <>
+            <Header back={backButton} />
+            <BasePage.Root>
+                <BasePage.Title>{data.title}</BasePage.Title>
+                <BasePage.Content>
+                    <BasePage.Details title="Opening Crawl">
+                        {crawl}
+                    </BasePage.Details>
+                    <BasePage.Links title={"Characters"}>{preview}</BasePage.Links>
+                </BasePage.Content>
+                <BasePage.Action href={"/"} title={"Back to Search"} />
+            </BasePage.Root>
+        </>
+    )
+
+}

@@ -1,10 +1,23 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
 @import 'tailwindcss';
+
+body {
+  font-family: 'Montserrat', sans-serif;
+}
+.shadow-green-teal {
+    box-shadow: 0 1px 0 0 #dadada;
+}
+.shadow-warm-gray {
+    box-shadow: 0 0.5px 1px 0 #848484bf;
+}
 
 @source '../views';
 @source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
 @theme {
     --font-sans: 'Montserrat';
-    --color-default-green: #0ab463;
+    --color-green-teal: #0ab463;
+    --color-green-emerald: #089954;
     --color-muted-gray: #c4c4c4;
     --color-warm-gray: #84848484;
+    --color-vivid-blue: #0094ff;
 }

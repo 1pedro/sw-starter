@@ -1,0 +1,258 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Star Wars API",
+        "version": "1.0.0"
+    },
+    "servers": [
+        {
+            "url": "/api",
+            "description": "API base URL"
+        }
+    ],
+    "paths": {
+        "/search/{kind}": {
+            "get": {
+                "tags": [
+                    "StarWars"
+                ],
+                "summary": "Search for people or films",
+                "operationId": "b5c7801d46645579fbcdcddf063e18f7",
+                "parameters": [
+                    {
+                        "name": "kind",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "enum": [
+                                "people",
+                                "films"
+                            ]
+                        }
+                    },
+                    {
+                        "name": "query",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Search"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorResponse"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/{kind}/{id}": {
+            "get": {
+                "tags": [
+                    "StarWars"
+                ],
+                "summary": "Get a resource by ID (people or films)",
+                "operationId": "714d5d9ca079ef6ebc7af0c9b0901ca7",
+                "parameters": [
+                    {
+                        "name": "kind",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "enum": [
+                                "people",
+                                "films"
+                            ]
+                        }
+                    },
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "oneOf": [
+                                        {
+                                            "$ref": "#/components/schemas/People"
+                                        },
+                                        {
+                                            "$ref": "#/components/schemas/Film"
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorResponse"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/statistics": {
+            "get": {
+                "tags": [
+                    "Statistics"
+                ],
+                "summary": "Get application statistics",
+                "operationId": "f519dbf9210a00125c76805e2eb1522b",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "ErrorResponse": {
+                "properties": {
+                    "errors": {
+                        "description": "Validation or domain errors keyed by field",
+                        "type": "object",
+                        "additionalProperties": true
+                    }
+                },
+                "type": "object"
+            },
+            "Film": {
+                "properties": {
+                    "title": {
+                        "type": "string",
+                        "example": "A New Hope"
+                    },
+                    "opening_crawl": {
+                        "type": "string",
+                        "example": "It is a period of civil war..."
+                    },
+                    "characters": {
+                        "type": "array",
+                        "items": {
+                            "type": "string",
+                            "example": "/api/people/1"
+                        }
+                    }
+                },
+                "type": "object"
+            },
+            "People": {
+                "properties": {
+                    "name": {
+                        "type": "string",
+                        "example": "Luke Skywalker"
+                    },
+                    "gender": {
+                        "type": "string",
+                        "example": "male"
+                    },
+                    "height": {
+                        "type": "string",
+                        "example": "172"
+                    },
+                    "mass": {
+                        "type": "string",
+                        "example": "77"
+                    },
+                    "birth_year": {
+                        "type": "string",
+                        "example": "19BBY"
+                    },
+                    "eye_color": {
+                        "type": "string",
+                        "example": "blue"
+                    },
+                    "hair_color": {
+                        "type": "string",
+                        "example": "blond"
+                    },
+                    "films": {
+                        "type": "array",
+                        "items": {
+                            "type": "string",
+                            "example": "/api/films/1"
+                        }
+                    }
+                },
+                "type": "object"
+            },
+            "Search": {
+                "properties": {
+                    "uid": {
+                        "type": "string",
+                        "example": "1"
+                    },
+                    "title": {
+                        "type": "string",
+                        "example": "Luke Skywalker"
+                    },
+                    "kind": {
+                        "type": "string",
+                        "enum": [
+                            "people",
+                            "films"
+                        ],
+                        "example": "people"
+                    }
+                },
+                "type": "object"
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "Statistics",
+            "description": "Statistics endpoints"
+        },
+        {
+            "name": "StarWars",
+            "description": "StarWars"
+        }
+    ]
+}

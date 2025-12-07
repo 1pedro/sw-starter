@@ -7,10 +7,10 @@ Route::get('/', function () {
     return Inertia::render('search');
 })->name('home');
 
-Route::get('/person', function () {
-    return Inertia::render('person');
-})->name('person');
+Route::get('/people/{id}', function ($id) {
+    return Inertia::render('people', ["id" => $id]);
+})->name('people');
 
-Route::get('/movie', function () {
-    return Inertia::render('movie');
-})->name('movie');
+Route::get('/films/{id}', function ($id) {
+    return Inertia::render('film', ["id" => $id]);
+})->name('film');
