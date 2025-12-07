@@ -23,14 +23,21 @@ sequenceDiagram
     M->>Ctrl: next(request)
     Ctrl->>S: search(kind, query)
     S->>H: GET {baseUrl}/{kind}?name|title=query
-    H-->>S: JSON (results)
-    S-->>Ctrl: Collection<SearchDTO>
-    Ctrl-->>M: JSON response
-
-    M-->>C: HTTP Response
-
-    Note over M: After response is produced
-    M->>DB: Save statistic Info
+    alt SWAPI error
+        H-->>S: Error / non-2xx
+        S-->>Ctrl: throws Exception
+        Ctrl-->>M: JSON error (500)
+        M-->>C: HTTP 500
+        Note over M: After 500 response
+        M->>DB: Save statistic Info (status=500)
+    else Success
+        H-->>S: JSON (results)
+        S-->>Ctrl: Collection<SearchDTO>
+        Ctrl-->>M: JSON response
+        M-->>C: HTTP 200
+        Note over M: After response is produced
+        M->>DB: Save statistic Info
+    end
 ```
 
 ### GET /api/{kind}/{id}
@@ -56,20 +63,32 @@ sequenceDiagram
     alt Cache hit
         Cache-->>S: Cached JSON
         S-->>Ctrl: DTO (PeopleDTO|FilmDTO) from cached data
+        Note over Ctrl: DTO.transformURLs(baseUrl = env("APP_URL"))
+        Ctrl-->>M: JSON response (DTO with internal URLs rewritten)
+        M-->>C: HTTP 200
+        Note over M: After response is produced
+        M->>DB: Save statistic Info
     else Cache miss
         Cache-->>S: null
         S->>H: GET {baseUrl}/{kind}/{id}
-        H-->>S: JSON (entity)
-        S->>Cache: PUT key, value, ttl
-        S-->>Ctrl: DTO (PeopleDTO|FilmDTO)
+        alt SWAPI error
+            H-->>S: Error / non-2xx
+            S-->>Ctrl: throws Exception
+            Ctrl-->>M: JSON error (500)
+            M-->>C: HTTP 500
+            Note over M: After 500 response
+            M->>DB: Save statistic Info (status=500)
+        else Success
+            H-->>S: JSON (entity)
+            S->>Cache: PUT key, value, ttl
+            S-->>Ctrl: DTO (PeopleDTO|FilmDTO)
+            Note over Ctrl: DTO.transformURLs(baseUrl = env("APP_URL"))
+            Ctrl-->>M: JSON response (DTO with internal URLs rewritten)
+            M-->>C: HTTP 200
+            Note over M: After response is produced
+            M->>DB: Save statistic Info
+        end
     end
-    Note over Ctrl: DTO.transformURLs(baseUrl = env("APP_URL"))
-    Ctrl-->>M: JSON response (DTO with internal URLs rewritten)
-
-    M-->>C: HTTP Response
-
-    Note over M: After response is produced
-    M->>DB: Save statistic Info
 ```
 
 
