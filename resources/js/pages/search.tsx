@@ -1,42 +1,23 @@
-import Button from "@/components/atoms/button";
-import Header from "@/components/header"
-import ListItem from "@/components/list-item";
+import Header from "@/components/molecules/header"
+import SearchBox from "@/components/molecules/search-box";
+import useSearch from "@/hooks/use-search";
+import { SearchResultBox } from "@/components/molecules/search-result-box";
+
 
 export default function Search() {
-    const result = [
-        { text: "Name", kind: "people", id: "1" },
-        { text: "Name", kind: "people", id: "1" },
-        { text: "Name", kind: "people", id: "1" },
-        { text: "Name", kind: "people", id: "1" },
-        { text: "Name", kind: "people", id: "1" },
-    ]
-
-    const empty = !result.length ? <div className="grid grid-col-1 place-items-center mx-auto h-[500px]">
-        <span className="text-center text-muted-gray font-bold">
-            There are zero matches. <br />
-            Use the form to search for People or Movies.
-        </span>
-    </div> : null;
-    const elements = result.map(el => <ListItem text={el.text} />)
-
+    const { handleSearch, empty, loading, elements, backButton, hideResults, hideSearchBox } = useSearch();
     return (
         <>
-            <Header />
+            <Header back={backButton} />
             <div className="w-full xl:w-1/2 mx-auto flex xl:flex-row flex-col">
-                <div className="w-full xl:w-1/3 bg-white rounded-md flex flex-col xl:m-5 space-y-5 p-6 xl:h-full h-screen shadow-md shadow-warm-gray">
-                    <span>What are you searching for?</span>
-                    <div className="flex justify-start space-x-2">
-                        <input type="radio" id="people" name="content" defaultChecked={true} /> <label htmlFor={"people"}>People</label>
-                        <input type="radio" id="movies" name="content" /> <label htmlFor={"movies"}>Movies</label>
-                    </div>
-                    <input type="text" id="searching" className="w-full h-[50px] border border-black rounded-md" />
-                    <Button className="w-11/12 xl:w-full" onClick={() => undefined}>Search</Button>
-                </div>
-                <div className="xl:w-2/3 bg-white rounded-md m-5 flex flex-col m-5 space-y-5 p-6  shadow-md shadow-warm-gray">
-                    <ListItem text={"Results"} />
-                    {elements}
-                    {empty}
-                </div>
+                <SearchBox hidden={hideSearchBox} title={"What are you searching for?"} onSearch={handleSearch} />
+                <SearchResultBox hidden={hideResults} title={"Results"}>
+                    <>
+                        {elements}
+                        {empty}
+                        {loading}
+                    </>
+                </SearchResultBox>
             </div>
         </>
     )

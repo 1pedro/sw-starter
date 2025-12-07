@@ -1,4 +1,4 @@
-const person = {
+const people = {
     "message": "ok",
     "result": {
         "properties": {
@@ -30,7 +30,7 @@ const person = {
             "url": "https://www.swapi.tech/api/people/1"
         },
         "_id": "5f63a36eee9fd7000499be42",
-        "description": "A person within the Star Wars universe",
+        "description": "A people within the Star Wars universe",
         "uid": "1",
         "__v": 4
     },
@@ -60,4 +60,4 @@ const person = {
 
 
 
-export default person
+export default people

@@ -1,4 +1,4 @@
-const movie = {
+const film = {
     "message": "ok",
     "result": {
         "properties": {
@@ -88,4 +88,4 @@ const movie = {
     }
 }
 
-export default movie
+export default film

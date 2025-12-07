@@ -1,8 +1,11 @@
-import { HTMLAttributes } from "react";
+import { ButtonHTMLAttributes } from "react";
 import { twMerge } from "tailwind-merge";
 
-export default function Button({ children, ...props }: HTMLAttributes<HTMLButtonElement>) {
-    const merged = twMerge(props.className, "cursor-pointer rounded-full bg-default-green text-white uppercase font-bold p-2 self-center bottom-[50px] fixed xl:relative xl:bottom-0")
+export default function Button({ children, ...props }: ButtonHTMLAttributes<HTMLButtonElement>) {
+    const color = props.disabled ? 'bg-warm-gray' : 'bg-green-teal hover:bg-green-emerald';
+
+    const merged = twMerge(props.className, [color], "cursor-pointer rounded-full text-white uppercase font-bold py-2 px-4 self-center")
+
     return (
         <button {...props} className={merged}>
             {children}

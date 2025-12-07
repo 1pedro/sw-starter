@@ -4,6 +4,8 @@ namespace App\Services;
 
 use App\DTOs\FilmDTO;
 use App\DTOs\PeopleDTO;
+use App\DTOs\SearchDTO;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Log;
@@ -23,11 +25,10 @@ class SwapiClient
      */
     private function toDTO(string $kind, array $data): mixed
     {
-        $properties = $data["result"]["properties"];
+        $properties = isset($data["result"]) ? $data["result"]["properties"] : $data["properties"];
         return match ($kind) {
             "people" => PeopleDTO::fromArray($properties),
             "films" => FilmDTO::fromArray($properties),
-            default => []
         };
     }
     /**
@@ -63,16 +64,23 @@ class SwapiClient
     /**
      * @return array
      */
-    public function search(string $kind, string $content): array
+    public function search(string $kind, string $content): Collection
     {
-        if ($kind === "people") {
-            return Http::baseUrl($this->baseUrl)
-                ->get($kind, ["name" => $content])
-                ->json();
-        }
+        $query = match ($kind) {
+            "people" => ["name" => $content],
+            "films" => ["title" => $content]
+        };
 
-        return Http::baseUrl($this->baseUrl)
-            ->get($kind, ["title" => $content])
+        $response = Http::baseUrl($this->baseUrl)
+            ->get($kind, $query)
             ->json();
+
+        $data = collect($response["result"])->map(function ($result) use ($kind) {
+            $properties = $result["properties"];
+
+            return new SearchDTO($properties["name"] ?? $properties["title"], $result["uid"], $kind);
+        });
+
+        return $data;
     }
 }
