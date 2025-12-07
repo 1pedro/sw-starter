@@ -15,7 +15,7 @@ export default function PeopleDetails(props: { birth_year: string, gender: strin
         .map(([title, value]) => <Text as="span" key={title}>{title}: {value}</Text>)
 
     return (
-        <div className="flex flex-col">
+        <div className="flex flex-col mt-2">
             {content}
         </div>
     )
