@@ -32,6 +32,7 @@ touch database/database.sqlite
 ## Docs
 - [Sequence Diagrams](https://github.com/1pedro/sw-starter/blob/main/docs/sequence-diagrams.md)
 - Statistics Endpoint: http://localhost/api/statistics
+- Swagger: http://localhost/api/documentation
 
 
 
