@@ -5,11 +5,13 @@ import Text from "../atoms/text";
 import { Kind } from "@/types";
 
 type SearchBoxState = { kind: Kind, query: string }
+
 export type SearchBoxProps = {
     title: string,
     hidden: boolean,
     onSearch: (state: SearchBoxState) => void
 }
+
 export default function SearchBox(props: SearchBoxProps) {
     const [state, setState] = useState<SearchBoxState>({ kind: "people", query: "" })
 

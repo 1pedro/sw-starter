@@ -1,6 +1,15 @@
 import Text from "@/components/atoms/text"
 
-export default function PeopleDetails(props: { birth_year: string, gender: string, eye_color: string, height: string, mass: string, hair_color: string }) {
+interface PeopleDetailsProps {
+    birth_year: string;
+    gender: string;
+    eye_color: string;
+    height: string;
+    mass: string;
+    hair_color: string;
+}
+
+export default function PeopleDetails(props: PeopleDetailsProps) {
 
     const properties = {
         "Birth Year": props.birth_year,

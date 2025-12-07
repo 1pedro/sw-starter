@@ -3,7 +3,7 @@ import PeopleDetails from "@/components/molecules/people-details";
 import useGetPeople from "@/api/people";
 import Anchor from "@/components/atoms/anchor";
 import BasePage from "@/components/organisms/base-page";
-import LinkIcon from "@/components/atoms/link-icon";
+import LinkIcon from "@/components/molecules/link-icon";
 import { useMedia } from "react-use";
 
 export default function People({ id }: { id: string }) {

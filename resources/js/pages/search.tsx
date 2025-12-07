@@ -3,7 +3,7 @@ import SearchBox from "@/components/molecules/search-box";
 import useSearch from "@/hooks/use-search";
 import BaseResultBox from "@/components/organisms/base-result-box";
 import SearchResultItem from "@/components/molecules/search-result-item";
-import LinkIcon from "@/components/atoms/link-icon";
+import LinkIcon from "@/components/molecules/link-icon";
 
 export default function Search() {
     const { handleSearch, isEmpty, data, isLoading, hideResults, hideSearchBox, setStep } = useSearch();

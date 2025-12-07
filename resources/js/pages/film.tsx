@@ -4,7 +4,8 @@ import useGetFilm from "@/api/film";
 import Anchor from "@/components/atoms/anchor";
 import BasePage from "@/components/organisms/base-page";
 import { useMedia } from "react-use";
-import LinkIcon from "@/components/atoms/link-icon";
+import LinkIcon from "@/components/molecules/link-icon";
+
 export default function Film({ id }: { id: string }) {
     const isSmall = useMedia('(max-width: 1024px');
     const { data = { title: '', opening_crawl: '', characters: [] }, isLoading } = useGetFilm(id);

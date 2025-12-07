@@ -2,7 +2,13 @@ import Text from "@/components/atoms/text"
 import { Link } from "@inertiajs/react"
 import { Kind } from "@/types"
 
-export default function SearchResult({ title, uid, kind }: { title: string, uid: string, kind: Kind }) {
+interface SearchResultProps {
+    title: string;
+    uid: string;
+    kind: Kind;
+}
+
+export default function SearchResult({ title, uid, kind }: SearchResultProps) {
 
     return (
         <div className="flex flex-col lg:flex-row justify-between lg:items-center pb-3 border-b border-muted-gray">

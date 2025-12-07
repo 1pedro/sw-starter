@@ -4,6 +4,7 @@ import { ReactNode } from "react"
 interface HeaderProps {
     back?: ReactNode | null
 }
+
 export default function Header({ back = null }: HeaderProps) {
 
     return (

@@ -100,5 +100,3 @@ it('returns person by id and transforms film URLs', function () {
 			],
 		]);
 });
-
-

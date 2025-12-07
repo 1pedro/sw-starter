@@ -1,7 +1,6 @@
 import { ReactNode } from "react";
 import Text from "@/components/atoms/text";
 
-
 interface RootProps { children: ReactNode, hidden?: boolean }
 
 const Root = ({ children, hidden }: RootProps) => {
