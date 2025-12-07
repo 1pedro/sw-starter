@@ -4,6 +4,9 @@ import BaseResultBox from '../organisms/base-result-box';
 const meta = {
     title: 'Organisms/BaseResultBox',
     component: BaseResultBox.Root,
+    args: {
+        children: undefined,
+    },
     tags: ['autodocs'],
 } satisfies Meta<typeof BaseResultBox.Root>;
 

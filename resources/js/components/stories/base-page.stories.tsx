@@ -5,6 +5,9 @@ const meta = {
     title: 'Organisms/BasePage',
     component: BasePage.Root,
     tags: ['autodocs'],
+    args: {
+        children: undefined,
+    },
 } satisfies Meta<typeof BasePage.Root>;
 
 export default meta;
@@ -19,7 +22,6 @@ export const Composed: Story = {
                     <div>Some detail here</div>
                 </BasePage.Details>
                 <BasePage.Links title="Related">
-                    {/* Example anchors expect backend API; replace with placeholders */}
                     <a className="inline-block mr-4 mt-2 text-vivid-blue" href="#">Item 1</a>
                     <a className="inline-block mr-4 mt-2 text-vivid-blue" href="#">Item 2</a>
                 </BasePage.Links>
