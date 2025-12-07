@@ -9,7 +9,7 @@ import SearchResultItem from "@/components/molecules/search-result-item";
 
 export default function useSearch() {
     const [step, setStep] = useState<"search" | "result">("search");
-    const isSmall = useMedia('(max-width: 1024px');
+	const isSmall = useMedia('(max-width: 1024px)');
     const { isPending, data = [], mutate, isError, error } = useSearchMutation();
     const hideResults = isSmall && step === "search";
     const hideSearchBox = isSmall && step === "result";
@@ -37,6 +37,7 @@ export default function useSearch() {
         isLoading: isPending,
         isError,
         isEmpty,
+		data,
         hideResults,
         hideSearchBox,
         content,
