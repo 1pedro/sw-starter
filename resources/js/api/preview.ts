@@ -1,7 +1,7 @@
 
 import { useQueries } from '@tanstack/react-query';
 import { api } from '@/lib/axios';
-import { Preview } from '@/types';
+import { Preview, APIError } from '@/types';
 
 async function getPreview(path: string): Promise<Preview> {
     const { data } = await api("/api").get<Preview>(

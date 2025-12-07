@@ -7,7 +7,7 @@ async function search(kind: Kind, query: string): Promise<Search[]> {
     const { data } = await api("/api").get<Search[]>(
         `/search/${kind}`,
         { params: { query } }
-    )
+    );
 
     return data
 }

@@ -1,4 +1,8 @@
 
+export type APIError = {
+    errors: string[];
+}
+
 export type Kind = "people" | "films";
 export type Search = {
     title: string;

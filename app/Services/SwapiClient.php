@@ -34,8 +34,9 @@ class SwapiClient
     /**
      * @return mixed
      */
-    public function cacheOrGet(string $kind, string|int $id): PeopleDTO|FilmDTO
+    public function cacheOrGet(string $kind, string|int $id): PeopleDTO|FilmDTO|null
     {
+
         $key = "{$kind}/{$id}";
 
         if ($cached = Cache::get($key)) {
@@ -49,16 +50,20 @@ class SwapiClient
 
         Log::info("####### [Cache Miss] #######");
         $response = Http::baseUrl($this->baseUrl)
-            ->get("$kind/$id")
-            ->json();
+            ->get("$kind/$id");
+
+
+        if(!$response->ok()){
+            throw new \Exception("Failed to get data from SWAPI");
+        }
+
+        Cache::put($key, $response->json(), $this->ttl);
 
         $data = $this->toDTO(
             $kind,
-            $response
+            $response->json()
         );
-
-        Cache::put($key, $response, $this->ttl);
-
+        
         return $data;
     }
     /**
@@ -66,16 +71,21 @@ class SwapiClient
      */
     public function search(string $kind, string $content): Collection
     {
+
         $query = match ($kind) {
             "people" => ["name" => $content],
             "films" => ["title" => $content]
         };
 
         $response = Http::baseUrl($this->baseUrl)
-            ->get($kind, $query)
-            ->json();
+            ->get($kind, $query);
 
-        $data = collect($response["result"])->map(function ($result) use ($kind) {
+
+        if(!$response->ok()){
+            throw new \Exception("Failed to get data from SWAPI");
+        }
+
+        $data = collect($response->json()["result"])->map(function ($result) use ($kind) {
             $properties = $result["properties"];
 
             return new SearchDTO($properties["name"] ?? $properties["title"], $result["uid"], $kind);
