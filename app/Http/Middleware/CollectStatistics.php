@@ -21,7 +21,7 @@ class CollectStatistics
         $response = $next($request);
 
         $endTime = microtime(true);
-        $responseTimeMs = round(($endTime - $startTime) * 1000, 3); // Convert to ms
+        $responseTimeMs = round(($endTime - $startTime) * 1000, 3);
 
         StatisticLog::create([
             'route_name' => $request->route()?->getName(),
