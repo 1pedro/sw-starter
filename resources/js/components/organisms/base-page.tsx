@@ -60,7 +60,7 @@ interface LinkProps {
 
 const Links = ({ children, title }: LinkProps) => {
     return (
-        <div className="lg:w-1/2 w-full mt-4 lg:mt-0">
+        <div className="lg:w-1/2 mt-4 w-full lg:mt-0">
             <Text as={"h3"} className="font-bold pb-2 border-b-2 border-warm-gray">{title}</Text>
             <div className={"grid grid-cols-2"}>
                 {children}

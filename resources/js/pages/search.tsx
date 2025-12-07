@@ -1,5 +1,5 @@
 import Header from "@/components/molecules/header"
-import SearchBox from "@/components/molecules/search-box";
+import SearchForm from "@/components/molecules/search-form";
 import useSearch from "@/hooks/use-search";
 import BaseResultBox from "@/components/organisms/base-result-box";
 import SearchResultItem from "@/components/molecules/search-result-item";
@@ -13,8 +13,8 @@ export default function Search() {
     return (
         <>
             <Header back={backButton} />
-            <div className="w-full lg:w-1/2 mx-auto flex lg:flex-row flex-col">
-                <SearchBox hidden={hideSearchBox} title={"What are you searching for?"} onSearch={handleSearch} />
+            <div className="w-full lg:w-3/4 mx-auto flex lg:flex-row flex-col">
+                <SearchForm hidden={hideSearchBox} title={"What are you searching for?"} onSearch={handleSearch} />
                 <BaseResultBox.Root hidden={hideResults}>
                     <BaseResultBox.Title>Results</BaseResultBox.Title>
                     {isEmpty && !isLoading && <BaseResultBox.Empty />}

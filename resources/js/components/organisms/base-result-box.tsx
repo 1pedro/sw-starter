@@ -5,7 +5,7 @@ interface RootProps { children: ReactNode, hidden?: boolean }
 
 const Root = ({ children, hidden }: RootProps) => {
     return (
-        <div hidden={hidden} className="lg:w-2/3 lg:mt-5 bg-white rounded-md flex flex-col space-y-5 p-6  shadow-md shadow-warm-gray">
+        <div hidden={hidden} className="lg:w-2/3  h-screen lg:h-auto lg:mt-5 bg-white rounded-md flex flex-col space-y-5 p-6  shadow-md shadow-warm-gray">
             {children}
         </div>
     )

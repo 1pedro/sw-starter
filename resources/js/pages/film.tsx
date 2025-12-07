@@ -27,7 +27,7 @@ export default function Film({ id }: { id: string }) {
                     <BasePage.Details title="Opening Crawl">
                         {crawl}
                     </BasePage.Details>
-                    <BasePage.Links title={"Movies"}>{preview}</BasePage.Links>
+                    <BasePage.Links title={"Characters"}>{preview}</BasePage.Links>
                 </BasePage.Content>
                 <BasePage.Action href={"/"} title={"Back to Search"} />
             </BasePage.Root>
