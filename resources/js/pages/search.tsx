@@ -9,7 +9,7 @@ export default function Search() {
     return (
         <>
             <Header back={backButton} />
-            <div className="w-full xl:w-1/2 mx-auto flex xl:flex-row flex-col">
+            <div className="w-full lg:w-1/2 mx-auto flex lg:flex-row flex-col">
                 <SearchBox hidden={hideSearchBox} title={"What are you searching for?"} onSearch={handleSearch} />
                 <SearchResultBox hidden={hideResults} title={"Results"}>
                     <>

@@ -9,8 +9,8 @@ interface RootProps {
 
 const Root = ({ children }: RootProps) => {
     return (
-        <div className="w-full xl:w-1/2 mx-auto h-auto">
-            <div className="w-full bg-white rounded-md flex flex-col xl:m-5 space-y-5 p-6 xl:h-full shadow-md shadow-warm-gray">
+        <div className="w-full lg:w-1/2 mx-auto h-auto">
+            <div className="w-full bg-white rounded-md flex flex-col lg:m-5 space-y-5 p-6 lg:h-full shadow-md shadow-warm-gray">
                 {children}
             </div>
         </div>
@@ -33,7 +33,7 @@ interface DetailsProps {
 }
 const Details = ({ title, children }: DetailsProps) => {
     return (
-        <div className="xl:w-1/2 w-full">
+        <div className="lg:w-1/2 w-full">
             <Text as={"h3"} className="font-bold pb-2 border-b-2 border-warm-gray">{title}</Text>
             {children}
         </div>
@@ -47,8 +47,8 @@ interface ActionProps {
 
 const Action = ({ href = "/", title }: ActionProps) => {
     return (
-        <Link href={href} className="pb-5 mt-2 xl:pb-0 xl:mt-0">
-            <Button className={"uppercase w-full xl:w-auto"}>{title}</Button>
+        <Link href={href} className="pb-5 mt-2 lg:pb-0 lg:mt-0">
+            <Button className={"uppercase w-full lg:w-auto"}>{title}</Button>
         </Link>
     )
 }
@@ -60,7 +60,7 @@ interface LinkProps {
 
 const Links = ({ children, title }: LinkProps) => {
     return (
-        <div className="xl:w-1/2 w-full mt-4 xl:mt-0">
+        <div className="lg:w-1/2 w-full mt-4 lg:mt-0">
             <Text as={"h3"} className="font-bold pb-2 border-b-2 border-warm-gray">{title}</Text>
             <div className={"grid grid-cols-2"}>
                 {children}
@@ -75,7 +75,7 @@ interface ContentProps {
 
 const Content = ({ children }: ContentProps) => {
     return (
-        <div className="flex flex-col xl:flex-row space-x-20 xl:mx-0">
+        <div className="flex flex-col lg:flex-row space-x-20 lg:mx-0">
             {children}
         </div>
     )
