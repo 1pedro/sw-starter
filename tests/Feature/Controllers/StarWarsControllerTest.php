@@ -100,3 +100,35 @@ it('returns person by id and transforms film URLs', function () {
 			],
 		]);
 });
+
+it('returns 500 with error payload when SWAPI fails', function () {
+	$mock = new class() extends SwapiClient {
+		public function search(string $kind, string $content): Collection
+		{
+			throw new \Exception('Failed to get data from SWAPI');
+		}
+	};
+	app()->instance(SwapiClient::class, $mock);
+
+	$this->getJson('/api/search/people?query=Luke')
+		->assertStatus(500)
+		->assertJson([
+			'errors' => ['Failed to get data from SWAPI'],
+		]);
+});
+
+it('returns 500 with error payload when SWAPI fails', function () {
+	$mock = new class() extends SwapiClient {
+		public function cacheOrGet(string $kind, string|int $id): PeopleDTO
+		{
+			throw new \Exception('Failed to get data from SWAPI');
+		}
+	};
+	app()->instance(SwapiClient::class, $mock);
+
+	$this->getJson('/api/people/1')
+		->assertStatus(500)
+		->assertJson([
+			'errors' => ['Failed to get data from SWAPI'],
+		]);
+});
