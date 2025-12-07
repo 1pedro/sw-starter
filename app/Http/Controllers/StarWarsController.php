@@ -32,9 +32,14 @@ class StarWarsController extends Controller
         if (!$query) {
             return new JsonResponse(["errors" => ['query' => ["not provided"]]]);
         }
-        $data = $this->swapi->search($kind, $query);
 
-        return response()->json($data);
+        try{
+            $data = $this->swapi->search($kind, $query);
+            
+            return response()->json($data);
+        }catch(\Exception $e){
+            return new JsonResponse(["errors" => [$e->getMessage()]], 500);
+        }
     }
 
     public function getById(Request $request, string $kind, int $id): JsonResponse
@@ -43,10 +48,15 @@ class StarWarsController extends Controller
             return new JsonResponse(["errors" => ['kind' => ["invalid"]]]);
         }
 
-        $data = $this->swapi
+        try{
+
+            $data = $this->swapi
             ->cacheOrGet($kind, $id)
             ->transformURLs($this->baseUrl);
 
         return response()->json($data);
+        }catch(\Exception $e){
+            return new JsonResponse(["errors" => [$e->getMessage()]], 500);
+        }
     }
 }

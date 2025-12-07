@@ -1,10 +1,10 @@
 
 import { useQueries } from '@tanstack/react-query';
 import { api } from '@/lib/axios';
-import { Preview } from '@/types';
+import { Preview, APIError } from '@/types';
 
-async function getPreview(path: string): Promise<Preview> {
-    const { data } = await api("/api").get<Preview>(
+async function getPreview(path: string): Promise<Preview | APIError> {
+    const { data } = await api("/api").get<Preview | APIError>(
         path,
     )
 
@@ -12,6 +12,7 @@ async function getPreview(path: string): Promise<Preview> {
 }
 
 export default function useGetPreview(urls: string[]) {
+
     return useQueries({
         queries: urls.map(url => {
             const [_, path] = url.split("/api");

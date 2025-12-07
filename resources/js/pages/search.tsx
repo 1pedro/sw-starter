@@ -2,13 +2,11 @@ import Header from "@/components/molecules/header"
 import SearchForm from "@/components/molecules/search-form";
 import useSearch from "@/hooks/use-search";
 import BaseResultBox from "@/components/organisms/base-result-box";
-import SearchResultItem from "@/components/molecules/search-result-item";
 import LinkIcon from "@/components/molecules/link-icon";
-
+    
 export default function Search() {
-    const { handleSearch, isEmpty, data, isLoading, hideResults, hideSearchBox, setStep } = useSearch();
+    const { handleSearch, isEmpty, isLoading, hideResults, hideSearchBox, setStep, content} = useSearch();
     const backButton = hideSearchBox && <LinkIcon icon={"chevron-left"} onClick={() => setStep("search")} />
-    const content = data.map(el => <SearchResultItem key={el.uid} uid={el.uid} title={el.title} kind={el.kind} />)
 
     return (
         <>
