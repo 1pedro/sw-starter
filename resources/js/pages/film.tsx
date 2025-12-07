@@ -5,6 +5,7 @@ import Anchor from "@/components/atoms/anchor";
 import BasePage from "@/components/organisms/base-page";
 import { useMedia } from "react-use";
 import LinkIcon from "@/components/molecules/link-icon";
+import useLinkBuilder from "@/hooks/use-link-builder";
 
 export default function Film({ id }: { id: string }) {
     const isSmall = useMedia('(max-width: 1024px');
@@ -14,7 +15,8 @@ export default function Film({ id }: { id: string }) {
         (text, index) => <Text as={"p"} key={index} className="mt-2" >{text}</Text>
     )
 
-    const preview = data.characters.map(address => <Anchor key={address} address={address} />)
+    const preview = useLinkBuilder({ urls: data.characters });
+
 
     const backButton = isSmall ? <LinkIcon icon={"chevron-left"} href={"/"} /> : null;
 

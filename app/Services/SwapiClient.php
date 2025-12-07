@@ -17,7 +17,7 @@ class SwapiClient
 
     public function __construct()
     {
-        $this->baseUrl = config('services.swapi.baseUrl', env('SWAPI_CACHE_BASE_URL', 'https://www.swapi.tech/api/'));
+        $this->baseUrl = config('services.swapi.baseUrl', env('SWAPI_BASE_URL', 'https://www.swapi.tech/api/'));
         $this->ttl = config('services.swapi.ttl', env('SWAPI_CACHE_TTL', 3600));
     }
     /**
@@ -34,7 +34,7 @@ class SwapiClient
     /**
      * @return mixed
      */
-    public function cacheOrGet(string $kind, string|int $id): FilmDTO|PeopleDTO
+    public function cacheOrGet(string $kind, string|int $id): PeopleDTO|FilmDTO
     {
         $key = "{$kind}/{$id}";
 

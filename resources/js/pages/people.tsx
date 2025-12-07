@@ -1,10 +1,10 @@
 import Header from "@/components/molecules/header";
 import PeopleDetails from "@/components/molecules/people-details";
 import useGetPeople from "@/api/people";
-import Anchor from "@/components/atoms/anchor";
 import BasePage from "@/components/organisms/base-page";
 import LinkIcon from "@/components/molecules/link-icon";
 import { useMedia } from "react-use";
+import useLinkBuilder from "@/hooks/use-link-builder";
 
 export default function People({ id }: { id: string }) {
 
@@ -20,7 +20,8 @@ export default function People({ id }: { id: string }) {
         films: []
     } } = useGetPeople(id)
 
-    const preview = data.films.map(address => <Anchor key={address} address={address} />)
+    const preview = useLinkBuilder({ urls: data.films })
+
     const backButton = isSmall ? <LinkIcon icon={"chevron-left"} href={"/"} /> : null;
     return (
         <>

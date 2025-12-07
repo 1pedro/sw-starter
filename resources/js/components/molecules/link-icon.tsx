@@ -17,7 +17,7 @@ const icons: Record<IconKeys, JSX.Element> = {
 }
 
 export default function LinkIcon({ icon, href, ...props }: LinkIconProps) {
-    const defaultProps = { color: "#0ab463", style: { position: "absolute", left: 10, scale: 1.4 } };
+    const defaultProps = { color: "#0ab463", style: { cursor: "pointer", position: "absolute", left: 10, scale: 1.4 } };
     const cloned = React.cloneElement(icons[icon], { ...props, ...defaultProps });
 
     if (href) {

@@ -20,3 +20,4 @@ use OpenApi\Attributes as OA;
 final class FilmSchema
 {
 }
+

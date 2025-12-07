@@ -26,7 +26,6 @@ final readonly class PeopleDTO
      */
     public static function fromArray(array $data): self
     {
-
         return new self(
             name: $data["name"],
             gender: $data["gender"],
