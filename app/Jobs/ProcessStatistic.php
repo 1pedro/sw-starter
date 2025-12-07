@@ -94,7 +94,7 @@ class ProcessStatistic implements ShouldQueue
             'popular_hour' => $popularHour,
         ];
 
-        Cache::put('statistics', $statistics, 300);
+        Cache::put('statistics', $statistics, 300); // 5 minutes
 
         Log::info("####### [ProcessStatistic] Processing finished #######");
     }

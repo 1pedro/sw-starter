@@ -23,7 +23,7 @@ describe('SwapiClient', function () {
         $httpResponse = [
             'result' => [
                 'properties' => [
-                    'randomProperty' => 'randomValue',
+                    'randomProperty' => 'randomValue', // this should not be present on the output
                     'name' => 'Luke Skywalker',
                     'gender' => 'male',
                     'height' => '172',
@@ -66,8 +66,7 @@ describe('SwapiClient', function () {
         $searchResponse = [
             'result' => [
                 [
-                    'randomProperty' => 'randomValue',
-                    'randomProperty2' => 'randomValue2',
+                    'randomProperty' => 'randomValue', 
                     'uid' => '1',
                     'properties' => [
                         'name' => 'Luke Skywalker',
@@ -75,7 +74,6 @@ describe('SwapiClient', function () {
                 ],
                 [
                     'randomProperty' => 'randomValue',
-                    'randomProperty2' => 'randomValue2',
                     'uid' => '2',
                     'properties' => [
                         'name' => 'Leia Organa',
@@ -109,7 +107,6 @@ describe('SwapiClient', function () {
             'result' => [
                 'properties' => [
                     'randomProperty' => 'randomValue',
-                    'randomProperty2' => 'randomValue2',
                     'title' => 'A New Hope',
                     'opening_crawl' => 'It is a period of civil war...',
                     'characters' => [
