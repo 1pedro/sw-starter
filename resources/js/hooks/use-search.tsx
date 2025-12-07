@@ -23,31 +23,17 @@ export default function useSearch() {
         }
     }
 
-    const empty = !data.length && !isPending ? <div className="grid grid-col-1 place-items-center mx-auto h-[500px]">
-        <Text as="span" className="text-center text-muted-gray font-bold">
-            There are zero matches. <br />
-            Use the form to search for People or Movies.
-        </Text>
-    </div> : null;
-
-    const elements = data.map(el => <SearchResultItem key={el.uid} uid={el.uid} title={el.title} kind={el.kind} />)
-
-    const loading = isPending ? <div className="grid grid-col-1 place-items-center mx-auto h-[500px]">
-        <Text className="text-warm-gray font-bold">Searching...</Text>
-    </div> : null;
 
     const hideResults = isSmall && step === "search";
     const hideSearchBox = isSmall && step === "result";
-    const backButton = hideSearchBox && <LinkIcon icon={"chevron-left"} onClick={() => setStep("search")} />
-
+    const isEmpty = !data.length;
     return {
         handleSearch,
-        empty,
-        elements,
-        loading,
+        setStep,
+        isLoading: isPending,
+        isEmpty,
         data,
         hideResults,
         hideSearchBox,
-        backButton
     }
 }
